@@ -43,14 +43,38 @@ We are going to run a couple SQL queries and put the answers in the "Query Respo
   * TX: 7908
   * WY: 1271
 
+Answer: 
+  SELECT 
+    state, 
+    SUM(user_id) AS total_user_id
+  FROM 
+    usersAddress
+  GROUP BY 
+    state;
+
 2.
   * Area code: 90248
 
-3.
-  * first_name: Alaine
-  * county: Orange
-  * county total: 11
+Answer:
+  SELECT zip, COUNT(*) AS count
+  FROM usersAddress
+  GROUP BY zip
+  ORDER BY count DESC
+  LIMIT 1;
 
+3.
+  * first_name: Alecia
+  * county: Los Angeles
+  * county total: 18
+
+Answer:
+  SELECT MIN(u.first_name) AS min_first_name, ua.county, COUNT(u.id) AS user_count
+  FROM users u
+  JOIN usersAddress ua ON u.id = ua.user_id
+  GROUP BY ua.county
+  HAVING user_count > 10
+  ORDER BY user_count DESC
+  LIMIT 1;
 
 ## Summary
 
